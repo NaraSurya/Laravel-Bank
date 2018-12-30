@@ -1,0 +1,60 @@
+
+/**
+component background
+*/
+.dark-shadow{
+    background-image: linear-gradient( to right ,#414956,#2F3543);
+    color: white;
+}
+
+.dark{
+    background-color : #2C2E3B!important; 
+    color: #656C76;
+    border-color:  #656C76 !important;
+}
+
+.lavender{
+    background-image : linear-gradient(#8f5efb, #4771FB);
+    color : white;
+}
+
+/**
+background color
+*/
+
+.bg-dark{
+    background-color : #2C2E3B!important; 
+    color: #656C76;
+}
+
+
+/*
+text color
+*/
+
+.text-dark{
+    color: #656C76 !important;
+}
+
+.text-purple{
+    color: #AC90FE !important;
+}
+
+.text-dark-blue{
+    color :#1B28F7;
+}
+/*
+Border color
+*/
+.border-purple{
+    border-color: #AC90FE !important;
+}
+
+/*
+button
+*/
+
+.btn-lavender{
+    background-color: #AC90FE !important;
+    color: white !important;
+}
