@@ -41,7 +41,7 @@ class UserController extends Controller
             abort(403);
         }  
         $this->validate($request,$this->rule);
-        $image = _File::_StoreImage($request);
+        $image = _File::_StoreImage($request,'users');
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -76,8 +76,8 @@ class UserController extends Controller
         $this->rule['email'] = $this->rule['email'].',id,'.$user->id;
         $this->rule['nik'] = $this->rule['nik'].',id,'.$user->id;
         $this->validate($request,$this->rule);
-        _File::_DeleteImage($user->profile_picture);
-        $image = _File::_StoreImage($request);
+        _File::_DeleteImage($user->profile_picture,'users');
+        $image = _File::_StoreImage($request,'users');
         
         $user->name = $request->name;
         $user->email = $request->email;

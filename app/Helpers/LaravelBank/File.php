@@ -5,21 +5,24 @@ namespace App\Helpers\LaravelBank;
 use Illuminate\Support\Facades\Storage;
 
     class File{
-        public static function _StoreImage($request){
+        public static function _StoreImage($request , $folderName){
             if($request->foto_profile){
-                $fileName = $request->nik.'_profile';
+                $fileName = $request->nik.'_image';
                 $fileExtension = $request->foto_profile->getClientOriginalExtension();
                 $fileNameToStorage = $fileName.'_'.time().'.'.$fileExtension;
-                $filePath = $request->foto_profile->storeAs('public/users' , $fileNameToStorage); 
+                $filePath = $request->foto_profile->storeAs('public/'.$folderName , $fileNameToStorage); 
             } 
             else {
-                $fileNameToStorage = 'NULL';
+                $fileNameToStorage = 'null.jpg';
             }
             return $fileNameToStorage;
         }
 
-        public static function _DeleteImage($fileName){
-            Storage::delete(['public/users/'.$fileName]);
+        public static function _DeleteImage($fileName , $folderName){
+            if($fileName != 'null.jpg'){
+                Storage::delete(['public/'.$folderName.'/'.$fileName]);
+            }
+            
         }
     }
 

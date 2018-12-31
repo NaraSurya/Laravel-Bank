@@ -90,7 +90,7 @@
                   @can('isAdmin')
                     <a href={{ route('users.index') }}>Data User</a>
                   @endcan
-                  <a href=''>Data Anggota</a>
+                  <a href={{route('member.index')}}>Data Anggota</a>
                   <a href="">Data Bunga</a>
                   <a href="">Data Jenis Transaksi</a>
                 </div>
@@ -121,7 +121,7 @@
           </div>
         </nav>
 
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-11 px-4 bg-main">
+        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4 bg-main">
             @yield('content')
         </main>
       </div>
