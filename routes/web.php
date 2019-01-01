@@ -26,3 +26,8 @@ Route::prefix('users')->group(function(){
     Route::post('update','UserController@update')->name('users.update');
 });
 
+Route::prefix('members')->group(function(){
+    Route::resource('member', 'MemberController');
+    Route::post('store','MemberController@store')->name('test');
+});
+
