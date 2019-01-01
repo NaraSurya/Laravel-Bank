@@ -58,13 +58,13 @@
 
                             <div class="col-md-6">
                                 <div class="custom-file">
-                                    <input id="foto_profile" type="file" class="{{ $errors->has('foto_profile') ? ' is-invalid' : '' }} custom-file-input dark text-white" name="foto_profile" value="{{ old('foto_profile') }}" required>
-                                    <label class="custom-file-label dark text-white" for="foto_profile">Choose file</label>
+                                    <input id="picture" type="file" class="{{ $errors->has('picture') ? ' is-invalid' : '' }} custom-file-input dark text-white" name="picture" value="{{ old('picture') }}" required>
+                                    <label class="custom-file-label dark text-white" for="picture">Choose file</label>
                                 </div>
                                
-                                @if ($errors->has('foto_profile'))
+                                @if ($errors->has('picture'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('foto_profile') }}</strong>
+                                        <strong>{{ $errors->first('picture') }}</strong>
                                     </span>
                                 @endif
                             </div>

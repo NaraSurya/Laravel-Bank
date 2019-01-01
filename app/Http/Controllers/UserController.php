@@ -18,7 +18,7 @@ class UserController extends Controller
         'email'=> 'required|email|unique:users',
         'password'=>'required|confirmed|string|min:6',
         'nik'=>'required|unique:users',
-        'foto_profile' => 'required'
+        'picture' => 'required'
     ];
     
     public function __construct(){

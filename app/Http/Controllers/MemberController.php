@@ -18,7 +18,7 @@ class MemberController extends Controller
         'address' => 'required|max:191',
         'phone_number' => 'required',
         'gender' => 'required',
-        'profile_picture' => 'required',
+        'picture' => 'required',
         'birth_day' => 'required|date',
     ];
     
@@ -68,7 +68,6 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate($request,$this->rule); 
         $image = _File::_StoreImage($request,'members'); 
         $member = member::create([ 
@@ -85,7 +84,7 @@ class MemberController extends Controller
         $member->member_number = $member->_makeMemberNumber(); 
         $member->save();
 
-        return redirect('member.index');
+        return redirect(route('member.index'));
     }
 
     /**
