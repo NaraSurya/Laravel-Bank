@@ -12,7 +12,7 @@
                     <h4>Form Pendaftaran Anggota</h4>
                 </div>
             </div>
-            <form action={{route('test')}} method="POST" enctype="multipart/form-data">
+            <form action={{route('member.store')}} method="POST" enctype="multipart/form-data">
                 @csrf 
                 <div class="row">
                     <div class="col-sm-12 col-md-8">
@@ -62,13 +62,13 @@
                     </div>
                     <div class="col-sm-12 col-md-7">
                          <div class="custom-file">
-                                <input id="profile_picture" type="file" class="{{ $errors->has('profile_picture') ? ' is-invalid' : '' }} custom-file-input dark text-white" name="profile_picture" value="{{ old('foto_profile') }}" required>
-                                <label class="custom-file-label dark text-white" for="profile_picture">Choose file</label>
+                                <input id="picture" type="file" class="{{ $errors->has('picture') ? ' is-invalid' : '' }} custom-file-input dark text-white" name="picture" value="{{ old('picture') }}" required>
+                                <label class="custom-file-label dark text-white" for="picture">Choose file</label>
                             </div>
                            
-                            @if ($errors->has('profile_picture'))
+                            @if ($errors->has('picture'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('profile_picture') }}</strong>
+                                    <strong>{{ $errors->first('picture') }}</strong>
                                 </span>
                             @endif
                     </div>

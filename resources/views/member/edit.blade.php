@@ -64,7 +64,7 @@
                     <div class="col-sm-12 col-md-7">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="profile_picture" id="profile_picture">
+                                <input type="file" class="custom-file-input" name="picture" id="picture">
                                 <label class="custom-file-label" for="customFile">Foto profile</label>
                                 </div>
                             </div>
