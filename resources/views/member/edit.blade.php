@@ -57,7 +57,7 @@
                                 <label class="custom-control-label" for="man"> Man</label>    
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" value="women" name="gender" id="women" class="custom-control-input"  @if ($member->gender == 'woman') checked @endif>
+                                <input type="radio" value="women" name="gender" id="women" class="custom-control-input"  @if ($member->gender == 'women') checked @endif>
                                 <label class="custom-control-label" for="women">women</label>
                         </div>  
                     </div>

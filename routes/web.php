@@ -30,3 +30,11 @@ Route::prefix('members')->group(function(){
     Route::resource('member', 'MemberController');
 });
 
+Route::prefix('deposits')->group(function(){
+    Route::get('deposit/','DepositController@index')->name('deposit.index');
+    Route::get('deposit/{id}','DepositController@show')->name('deposit.show');
+    route::get('search','DepositController@search')->name('deposit.search');
+    route::post('member-deposit','DepositController@deposit')->name('deposit');
+    route::post('member-withdrawal','DepositController@withdrawal')->name('withdrawal');
+});
+

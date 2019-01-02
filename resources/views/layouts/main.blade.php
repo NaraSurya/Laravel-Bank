@@ -100,7 +100,7 @@
                   <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Transaksi</span> 
                 </a>
                 <div class="sub-menu">
-                  <a href="">Transaksi</a>
+                  <a href={{route('deposit.index')}}>Transaksi</a>
                   <a href="">Perhitungan Bunga</a>
                 </div>
               </li>
