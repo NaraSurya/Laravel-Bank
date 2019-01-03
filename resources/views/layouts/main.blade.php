@@ -91,7 +91,7 @@
                     <a href={{ route('users.index') }}>Data User</a>
                   @endcan
                   <a href={{route('member.index')}}>Data Anggota</a>
-                  <a href="">Data Bunga</a>
+                  <a href={{route('masterInterest.index')}}>Data Bunga</a>
                   <a href="">Data Jenis Transaksi</a>
                 </div>
               </li>
@@ -100,7 +100,7 @@
                   <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Transaksi</span> 
                 </a>
                 <div class="sub-menu">
-                  <a href="">Transaksi</a>
+                  <a href={{route('deposit.index')}}>Transaksi</a>
                   <a href="">Perhitungan Bunga</a>
                 </div>
               </li>

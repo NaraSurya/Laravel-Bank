@@ -46,7 +46,7 @@ class member extends Model
     }
     public function _GetTotalDepositsAt($transaction_id){
         return $this->deposit->where('deposit_type_id','1')
-                             ->where('id','<', $transaction_id)
+                             ->where('id','<=', $transaction_id)
                              ->sum('nominal_transaction');
     }
 
@@ -55,7 +55,7 @@ class member extends Model
     }
     public function _GetTotalWithdrawalAt($transaction_id){
         return $this->deposit->where('deposit_type_id','2')
-                             ->where('id','<',$transaction_id)
+                             ->where('id','<=',$transaction_id)
                              ->sum('nominal_transaction');
     }
     
@@ -64,7 +64,7 @@ class member extends Model
     }
     public function _GetTotalInterestAt($transaction_id){
         return $this->deposit->where('deposit_type_id','3')
-                             ->where('id','<',$transaction_id)
+                             ->where('id','<=',$transaction_id)
                              ->sum('nominal_transaction');
     }
 
@@ -73,7 +73,7 @@ class member extends Model
     }
     public function _GetTotalTaxsAt($transaction_id){
         return $this->deposit->where('deposit_type_id','4')
-                             ->where('id','<',$transaction_id)
+                             ->where('id','<=',$transaction_id)
                              ->sum('nominal_transaction');
     }
 

@@ -100,14 +100,14 @@
                         </tr>
                     </thead>
                     <tbody class="text-white">
-                        @foreach ($member->deposit as $transaction)
+                        @foreach ($member->deposit->sortByDesc('id') as $transaction)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$transaction->date}}</td>
-                                <td>{{$transaction->deposit_type_id}}</td>
-                                <td>{{$transaksi->_Debit()}}</td>
-                                <td>{{$transaksi->_Kredit()}}</td>
-                                <td>Rp {{$member->_BalanceAt($transaksi->id)}}</td>
+                                <td>{{$transaction->deposit_type->transaction_name}}</td>
+                                <td>{{$transaction->_Debit()}}</td>
+                                <td>{{$transaction->_Kredit()}}</td>
+                                <td>Rp {{$member->_BalanceAt($transaction->id)}}</td>
                             </tr>
                         @endforeach
                     </tbody>
