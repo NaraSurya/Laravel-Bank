@@ -91,7 +91,7 @@
                     <a href={{ route('users.index') }}>Data User</a>
                   @endcan
                   <a href={{route('member.index')}}>Data Anggota</a>
-                  <a href="">Data Bunga</a>
+                  <a href={{route('masterInterest.index')}}>Data Bunga</a>
                   <a href="">Data Jenis Transaksi</a>
                 </div>
               </li>

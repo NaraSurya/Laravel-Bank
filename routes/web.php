@@ -38,3 +38,9 @@ Route::prefix('deposits')->group(function(){
     route::post('member-withdrawal','DepositController@withdrawal')->name('withdrawal');
 });
 
+Route::prefix('master-interest')->group(function(){
+    Route::get('index','MasterInterestController@index')->name('masterInterest.index');
+    Route::post('store','MasterInterestController@store')->name('masterInterest.store');
+    Route::delete('destroy/{masterInterest}','MasterInterestController@destroy')->name('masterInterest.destroy');
+});
+
