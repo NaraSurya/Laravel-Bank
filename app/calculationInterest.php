@@ -13,7 +13,6 @@ class calculationInterest extends Model
     ];
 
     public function _GetTotalInterest(){
-        
         $date = Carbon::parse($this->calculation_date)->format('Y-m-d');
         return deposit::where('deposit_type_id',3)->whereDate('date',$date)->sum('nominal_transaction');
     }

@@ -21,15 +21,17 @@ class CalculationInterestController extends Controller
     }
 
     public function store(Request $request){
-        
+
+        $dateTwoMonthAgo= Carbon::parse($request->transaction_month)->subMonth(2);
         $transactionMonth = explode('-',$request->transaction_month,2);
         $date = Carbon::now();
         $masterInterest = masterInterest::where('start_date','<=',$date)->get();
         $percentage = $masterInterest->sortByDesc('start_date')->first()->percentage;
         $interestId = $masterInterest->sortByDesc('start_date')->first()->id;
         $user = Auth::user()->id;
-        $lastDateToMonthAgo = Carbon::create($transactionMonth[0] , $transactionMonth[1]-2 , 1)->endOfMonth();
+        $lastDateToMonthAgo = $dateTwoMonthAgo->endOfMonth();
         $members = member::where('aktive',1)->get();
+        $totalInterest = 0;
 
         $calculationInterest = calculationInterest::create([
             'transaction_month'=>$transactionMonth[1],
@@ -38,7 +40,7 @@ class CalculationInterestController extends Controller
             'master_interest_id'=>$interestId,
             'user_id'=>$user
         ]);
-       
+
         foreach($members as $member){
             $balance = $member->_BalanceAtDate($lastDateToMonthAgo);
             $nominal_transaction = $balance * $percentage / 100; 
@@ -49,7 +51,10 @@ class CalculationInterestController extends Controller
                 'deposit_type_id'=>3,
                 'user_id'=>$user
             ]);
+            $totalInterest += $nominal_transaction;
         }
+        $calculationInterest->total_interests = $totalInterest;
+        $calculationInterest->save();
 
         return redirect()->back();
 

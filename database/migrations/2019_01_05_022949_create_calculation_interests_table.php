@@ -18,6 +18,7 @@ class CreateCalculationInterestsTable extends Migration
             $table->integer('transaction_month');
             $table->integer('transaction_year');
             $table->dateTime('calculation_date');
+            $table->integer('total_interests')->default(0);
             $table->unsignedInteger('master_interest_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();

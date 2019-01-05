@@ -44,7 +44,7 @@
                             <td>{{$transaction->transaction_year}}</td>
                             <td>{{$transaction->calculation_date}}</td>
                             <td>{{$transaction->master_interest->percentage}}</td>
-                            <td>{{$transaction->_GetTotalInterest()}}</td>
+                            <td>{{$transaction->total_interests}}</td>
                             <td>{{$transaction->user->name}}</td>
                         </tr>
                     @endforeach

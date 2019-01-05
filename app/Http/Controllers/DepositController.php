@@ -22,7 +22,7 @@ class DepositController extends Controller
      */
     public function index()
     {
-        $deposits = deposit::all();
+        $deposits = deposit::paginate(5);
         $balance = $deposits->where('deposit_type_id','1')->sum('nominal_transaction') + $deposits->where('deposit_type_id','4')->sum('nominal_transaction') - $deposits->where('deposit_type_id','2')->sum('nominal_transaction') - $deposits->where('deposit_type_id','3')->sum('nominal_transaction');
         return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
     }
