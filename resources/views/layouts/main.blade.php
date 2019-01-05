@@ -101,7 +101,7 @@
                 </a>
                 <div class="sub-menu">
                   <a href={{route('deposit.index')}}>Transaksi</a>
-                  <a href="">Perhitungan Bunga</a>
+                  <a href={{route('calculationInterest.index')}}>Perhitungan Bunga</a>
                 </div>
               </li>
               <li class="nav-item item mx-2 mb-3" id="report">

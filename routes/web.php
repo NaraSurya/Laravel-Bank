@@ -44,3 +44,8 @@ Route::prefix('master-interest')->group(function(){
     Route::delete('destroy/{masterInterest}','MasterInterestController@destroy')->name('masterInterest.destroy');
 });
 
+Route::prefix('calculation-interest')->group(function(){
+    Route::get('index','CalculationInterestController@index')->name('calculationInterest.index');
+    Route::post('store','CalculationInterestController@store')->name('calculationInterest.store');
+});
+

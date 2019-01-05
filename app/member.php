@@ -41,6 +41,15 @@ class member extends Model
         return $this->_GetTotalDepositsAt($transaction_id) - $this->_GetTotalWithdrawalAt($transaction_id) + $this->_GetTotalInterestAt($transaction_id) - $this->_GetTotalTaxsAt($transaction_id);
     }
 
+    public function _BalanceAtDate($date){
+        $transaction = $this->deposit->where('date','<=',$date); 
+        if($transaction->isEmpty()){
+            return 0;
+        }
+        $transactionId = $transaction->sortByDesc('id')->first()->id; 
+        return $this->_BalanceAt($transactionId); 
+    }
+
     public function _GetTotalDeposits(){
         return $this->deposit->where('deposit_type_id','1')->sum('nominal_transaction');
     }
