@@ -20,11 +20,11 @@ class DailyReportController extends Controller
         $date = Carbon::now();
         $datenow = $date->toDateString();
         $daily = deposit::whereDate('date',$datenow)->paginate(5);
-        return view('report.reportHarian.index',['dailys'=> $daily]);
+        return view('report.dailyReport.index',['dailys'=> $daily]);
     }
 
     public function search(Request $request){
         $daily = deposit::whereDate('date',$request->dateNow)->paginate(5);  
-        return view('report.reportHarian.index',['dailys'=> $daily]);
+        return view('report.dailyReport.index',['dailys'=> $daily]);
     }
 }
