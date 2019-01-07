@@ -36,6 +36,7 @@ Route::prefix('deposits')->group(function(){
     route::get('search','DepositController@search')->name('deposit.search');
     route::post('member-deposit','DepositController@deposit')->name('deposit');
     route::post('member-withdrawal','DepositController@withdrawal')->name('withdrawal');
+    route::get('menu/','DepositController@menu')->name('deposit.menu');
 });
 
 Route::prefix('master-interest')->group(function(){
@@ -47,5 +48,10 @@ Route::prefix('master-interest')->group(function(){
 Route::prefix('calculation-interest')->group(function(){
     Route::get('index','CalculationInterestController@index')->name('calculationInterest.index');
     Route::post('store','CalculationInterestController@store')->name('calculationInterest.store');
+});
+
+Route::prefix('daily-report')->group(function(){
+    Route::get('index','DailyReportController@index')->name('dailyReport.index');
+    Route::get('search','DailyReportController@search')->name('dailyReport.search');
 });
 

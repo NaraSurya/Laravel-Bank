@@ -22,7 +22,7 @@
                             </div>
                             <div class="col-12 d-flex">
                                 <h5>Total Balance</h5>
-                                <h6 class="mx-3">Rp.{{$member->_Balance()}}</h6>
+                                <h6 class="mx-3">Rp. {{number_format($member->_Balance(),0,',','.')}}</h6>
                             </div>
                         </div>
                     </div>
@@ -92,8 +92,8 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$transaction->date}}</td>
                             <td>{{$transaction->deposit_type->transaction_name}}</td>
-                            <td>{{$transaction->nominal_transaction}}</td>
-                            <td>{{$member->_BalanceAt($transaction->id)}}</td>
+                            <td>Rp. {{number_format($transaction->nominal_transaction,0,',','.')}}</td> 
+                            <td>Rp. {{number_format($member->_BalanceAt($transaction->id),0,',','.')}}</td>
                             <td>edit</td>
                         </tr>
                     @endforeach

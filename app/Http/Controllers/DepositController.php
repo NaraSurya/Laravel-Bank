@@ -117,4 +117,29 @@ class DepositController extends Controller
         ]);
         return redirect()->back();
     }
+
+    public function menu(Request $request){
+        $deposits = deposit::get();
+        $balance = $deposits->where('deposit_type_id','1')->sum('nominal_transaction') + $deposits->where('deposit_type_id','4')->sum('nominal_transaction') - $deposits->where('deposit_type_id','2')->sum('nominal_transaction') - $deposits->where('deposit_type_id','3')->sum('nominal_transaction');
+ 
+        if ($request->menu == 1) {
+            $deposits = deposit::where('deposit_type_id',1)->paginate(5);
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        } 
+        else if  ($request->menu == 2){
+            $deposits = deposit::where('deposit_type_id',2)->paginate(5);
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        }
+        else if  ($request->menu == 3){
+            $deposits = deposit::where('deposit_type_id',3)->paginate(5);
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        }
+        else{
+            $deposits = deposit::where('deposit_type_id',4)->paginate(5);
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        }
+        
+    }
 }
+
+  
