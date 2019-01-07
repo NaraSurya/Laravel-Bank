@@ -111,9 +111,9 @@
                 <div class="sub-menu">
                   <a href="">Report Nasabah</a>
                   <a href="">Report Harian</a>
-                  <a href="">Report Mingguan</a>
-                  <a href="">Report Bulanan</a>
-                  <a href="">Report Tahun</a>
+                  <a href={{route('weeklyReport.index')}}>Report Mingguan</a>
+                  <a href={{route('monthlyReport.index')}}>Report Bulanan</a>
+                  <a href={{route('annualReport.index')}}>Report Tahun</a>
                 </div>
               </li>
             </ul>
