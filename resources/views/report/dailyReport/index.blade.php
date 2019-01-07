@@ -13,7 +13,7 @@
                 <div class="col-3 p-3 dark">
                     <div class="form-group ">
                         <label for="date">Date</label>
-                        <input type="date" class="form-control" name="dateNow" id="date">
+                        <input type="date" class="form-control" name="dateNow" value={{Session::get('dailyDate')}} id="date">
                     </div>
                 </div>
                 <div class="col-3 p-4 dark">
@@ -38,7 +38,8 @@
                     </tr>
                 </thead>
                 <tbody class="text-white">
-                    @foreach ($dailys as $daily)
+                        
+                    @foreach ($dailys->sortbyDesc('id') as $daily)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$daily->member->name}}</td>
