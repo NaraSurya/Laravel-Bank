@@ -60,3 +60,16 @@ Route::prefix('member-report')->group(function(){
     Route::get('sort','MemberReportController@sort')->name('memberReport.sort');
 });
 
+Route::prefix('monthly-report')->group(function(){
+    Route::get('index','MonthlyReportController@index')->name('monthlyReport.index');
+    Route::post('seacrh-month','MonthlyReportController@search')->name('monthlyReport.search');
+});
+ Route::prefix('annual-report')->group(function(){
+    Route::get('index','AnnualReportController@index')->name('annualReport.index');
+    Route::post('seacrh-annual','AnnualReportController@search')->name('annualReport.search');
+});
+ Route::prefix('weekly-report')->group(function(){
+    Route::get('index','WeeklyReportController@index')->name('weeklyReport.index');
+    Route::post('seacrh-annual','WeeklyReportController@search')->name('weeklyReport.search');
+});
+
