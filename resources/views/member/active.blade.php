@@ -34,7 +34,7 @@
                                 {{$member->member_number}}
                             </td>
                             <td>
-                                {{$member->balance}}
+                                {{$member->_Balance()}}
                             </td>
                             <td>
                                 <a class="text-white" href={{ route('member.show',['id'=>$member->id])}}> <i class="fas fa-external-link-square-alt fa-lg text-dark-blue"></i></a>
