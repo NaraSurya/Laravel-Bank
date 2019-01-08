@@ -24,6 +24,7 @@ Route::prefix('users')->group(function(){
     Route::get('edit','UserController@edit')->name('users.edit');
     Route::get('fired/{id}','UserController@fired')->name('users.fired');
     Route::post('update','UserController@update')->name('users.update');
+    Route::get('show-fired','UserController@showFired')->name('users.showFired');
 });
 
 Route::prefix('members')->group(function(){
