@@ -55,3 +55,8 @@ Route::prefix('daily-report')->group(function(){
     Route::get('search','DailyReportController@search')->name('dailyReport.search');
 });
 
+Route::prefix('member-report')->group(function(){
+    Route::get('index','MemberReportController@index')->name('memberReport.index');
+    Route::get('sort','MemberReportController@sort')->name('memberReport.sort');
+});
+
