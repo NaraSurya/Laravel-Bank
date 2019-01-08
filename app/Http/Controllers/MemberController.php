@@ -169,4 +169,16 @@ class MemberController extends Controller
         $members = member::where('aktive','0')->get();
         return view('member.active',['members'=>$members , 'active'=>0]);
     }
+
+    public function controlActive(member $member){
+        if($member->aktive == '1'){
+            $member->aktive = '0';
+        }
+        else{
+            $member->aktive = '1';
+        }
+       
+        $member->save();
+        return redirect()->back();
+    }
 }

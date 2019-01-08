@@ -30,6 +30,7 @@ Route::prefix('members')->group(function(){
     Route::resource('member', 'MemberController');
     Route::get('active','MemberController@active')->name('member.active');
     Route::get('non-active','MemberController@nonActive')->name('member.nonActive');
+    Route::post('active-non-active/{member}','MemberController@controlActive')->name('member.controlActive');
 });
 
 Route::prefix('deposits')->group(function(){

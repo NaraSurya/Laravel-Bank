@@ -4,7 +4,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12 col-md-5">
+            <div class="col-sm-12 col-md-6">
                 <div class="row pt-3 pl-3 pb-3 pr-1 dark">
                     <div class="col-sm-12 col-md-3">
                         <a href="{{ asset('/storage/members/'.$member->profile_picture) }}">
@@ -47,10 +47,16 @@
                     </div>
                 </div>
                 <div class="row dark">
-                    <div class="col-6 text-right">
+                    <div class="col-1">
                         <a href={{route('member.edit',['id'=>$member->id])}} class="btn btn-success btn-sm my-3">Edit</a>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
+                        <form action={{route('member.controlActive',['id'=>$member->id])}} method="POST">
+                            @csrf
+                            <button class="btn btn-sm btn-primary my-3" type="submit">@if ($member->aktive == 1) deactivate @else activate @endif</button>
+                        </form>
+                    </div>
+                    <div class="col-4">
                         <form action={{route('member.destroy',['id'=>$member->id])}} method="POST">
                             @method('DELETE')
                             @csrf
@@ -73,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-7">
+            <div class="col-sm-12 col-md-6">
                 <div class="dark w-100 h-100">
                     <canvas id="riwayatChart">
 

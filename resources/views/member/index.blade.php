@@ -22,10 +22,10 @@
                </div>
                <div class="row">
                     <div class="col-6 border-right">
-                        <h4>{{ $members->where('active',0)->count()}}</h4>
+                        <h4>{{ $members->where('aktive',1)->count()}}</h4>
                     </div>
                     <div class="col-6">
-                        <h4>{{ $members->where('active',1)->count()}}</h4>
+                        <h4>{{ $members->where('aktive',0)->count()}}</h4>
                     </div>
                </div>
                <div class="row">
