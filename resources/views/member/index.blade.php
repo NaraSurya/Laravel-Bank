@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title' , 'Member')
-@section('action','/anggota-search')
+@section('action', route('deposit.search'))
 @section('content')
     <div class = " container-fluid">
         <div class="row">

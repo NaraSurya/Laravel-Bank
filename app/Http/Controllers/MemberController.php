@@ -181,4 +181,18 @@ class MemberController extends Controller
         $member->save();
         return redirect()->back();
     }
+
+    public function search(Request $request){
+        $search = $request->search;
+        $members = member::where('member_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('name' , 'like' , '%'.$search.'%') 
+                            ->orWhere('address' , 'like' , '%'.$search.'%')
+                            ->orWhere('ktp_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('phone_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('birth_day' , 'like' , '%'.$search.'%')->get();
+        if($members->count() == 1){
+           return $this->show($members->first());
+        }
+        return view('member.multipleResult',['members'=>$members]);
+    }
 }
