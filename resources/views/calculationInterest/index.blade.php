@@ -45,7 +45,7 @@
                     @foreach ($calculationInterest as $transaction)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$transaction->transaction_month}}</td>
+                            <td>{{$transaction->_GetMonth()}}</td>
                             <td>{{$transaction->transaction_year}}</td>
                             <td>{{$transaction->calculation_date}}</td>
                             <td>{{$transaction->master_interest->percentage}}</td>
