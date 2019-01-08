@@ -48,7 +48,7 @@
                             <td>{{$interest->start_date}}</td>
                             <td>{{$interest->percentage}}%</td>
                             <td>{{$interest->created_at}}</td>
-                            <td><a href="" class="btn btn-sm btn-success">Edit</a></td>
+                            <td><button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#editModal" data-action="{{ action('MasterInterestController@update', ['id'=>$interest->id]) }}" data-startDate ="{{$interest->start_date}}" data-percentage="{{$interest->percentage}}" >edit</button></td>
                             <td>
                                 <form action={{route('masterInterest.destroy',['id'=>$interest->id])}} method="post">
                                     @csrf
@@ -61,5 +61,50 @@
                 </tbody>
             </table>
         </div>
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Date Interest</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form  method="POST">
+                        <div class="modal-body">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="startDate" class="col-form-label">Start Date:</label>
+                                    <input type="date" name="start_date" class="form-control" id="startDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="percentage" class="col-form-label">percentage:</label>
+                                    <input type="number" name="percentage" step="0.01" min="0" class="form-control" id="percentage"></input>
+                                </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Change</button>
+                        </div>
+                </form>
+                </div>
+            </div>
+        </div>
     </div>  
+@endsection
+@section('script')
+    <script>
+        $('#editModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            var action = button.data('action')
+            var startDate = button.data('startDate')
+            var percentage = button.data('percentage') 
+            
+            var modal = $(this)
+            modal.find('form').attr('action', action)
+            modal.find('#startdate').val(startDate)
+            modal.find('#percentage').val(percentage)
+        })
+    </script>
 @endsection

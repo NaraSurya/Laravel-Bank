@@ -42,6 +42,7 @@ Route::prefix('master-interest')->group(function(){
     Route::get('index','MasterInterestController@index')->name('masterInterest.index');
     Route::post('store','MasterInterestController@store')->name('masterInterest.store');
     Route::delete('destroy/{masterInterest}','MasterInterestController@destroy')->name('masterInterest.destroy');
+    Route::post('update/{masterInterest}','MasterInterestController@update')->name('masterInterest.update');
 });
 
 Route::prefix('calculation-interest')->group(function(){
