@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('title','Monthly Report')
+@section('action', route('monthlyReport.searchByMember'))
 @section('content')
     <div class="container-fluid">
         <div class="row mt-3">

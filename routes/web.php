@@ -58,15 +58,18 @@ Route::prefix('calculation-interest')->group(function(){
 Route::prefix('monthly-report')->group(function(){
     Route::get('index','MonthlyReportController@index')->name('monthlyReport.index');
     Route::post('seacrh-month','MonthlyReportController@search')->name('monthlyReport.search');
+    Route::get('search-by-member','MonthlyReportController@searchByMember')->name('monthlyReport.searchByMember');
 });
 
 Route::prefix('annual-report')->group(function(){
     Route::get('index','AnnualReportController@index')->name('annualReport.index');
     Route::post('seacrh-annual','AnnualReportController@search')->name('annualReport.search');
+    Route::get('search-by-member','AnnualReportController@searchByMember')->name('annualReport.searchByMember');
 });
 
 Route::prefix('weekly-report')->group(function(){
     Route::get('index','WeeklyReportController@index')->name('weeklyReport.index');
     Route::post('seacrh-annual','WeeklyReportController@search')->name('weeklyReport.search');
+    Route::get('search-by-member','WeeklyReportController@searchByMember')->name('weeklyReport.searchByMember');
 });
 

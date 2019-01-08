@@ -1,24 +1,20 @@
 @extends('layouts.main')
-@section('title','Annual Report')
-@section('action', route('annualReport.searchByMember'))
+@section('title','Monthly Report')
+@section('action', route('monthlyReport.searchByMember'))
 @section('content')
     <div class="container-fluid">
         <div class="row mt-3">
             <div class="col-12">
-                <h5>Annual Report</h5>
+                <h5>Monthly Report</h5>
             </div>
         </div>
-        <form action={{route('annualReport.search') }} method="post">
+        <form action={{route('monthlyReport.search') }} method="post">
             @csrf
             <div class="row mt-5">
-                <div class="col-2">
+                <div class="col-4">
                     <div class="form-group d-flex">
-                        <label for="date" class="mt-2">Date</label>
-                        <input type="number" min="1900" max="2900" value= @if (Session::has('annualReport'))
-                            {{Session::get('annualReport')}}
-                        @else
-                            {{Carbon\Carbon::now()->year }}
-                        @endif name="date" class="form-control dark text-white mx-3" id="date" />
+                        <label for="date">Date</label>
+                        <input type="month" name="date" class="form-control dark  mx-3" id="date">
                     </div>
                 </div>
                 <div class="col-3">
@@ -57,11 +53,6 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
-        <div class="row mt-5">
-            <div class="col-12">
-                {!! $deposits->links() !!}
-            </div>
         </div>
     </div>
 @endsection

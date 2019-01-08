@@ -58,10 +58,5 @@
                 </tbody>
             </table>
         </div>
-        <div class="row mt-5">
-            <div class="col-12">
-                {!! $deposits->links() !!}
-            </div>
-        </div>
     </div>
 @endsection
