@@ -28,6 +28,8 @@ Route::prefix('users')->group(function(){
 
 Route::prefix('members')->group(function(){
     Route::resource('member', 'MemberController');
+    Route::get('active','MemberController@active')->name('member.active');
+    Route::get('non-active','MemberController@nonActive')->name('member.nonActive');
 });
 
 Route::prefix('deposits')->group(function(){

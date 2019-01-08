@@ -159,4 +159,14 @@ class MemberController extends Controller
 
         return redirect(route('member.index'));
     }
+
+    public function active(){
+        $members = member::where('aktive','1')->get();
+        return view('member.active',['members'=>$members , 'active'=>1]);
+    }
+
+    public function nonActive(){
+        $members = member::where('aktive','0')->get();
+        return view('member.active',['members'=>$members , 'active'=>0]);
+    }
 }
