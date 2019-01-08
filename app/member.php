@@ -53,6 +53,7 @@ class member extends Model
     public function _GetTotalDeposits(){
         return $this->deposit->where('deposit_type_id','1')->sum('nominal_transaction');
     }
+    
     public function _GetTotalDepositsAt($transaction_id){
         return $this->deposit->where('deposit_type_id','1')
                              ->where('id','<=', $transaction_id)
