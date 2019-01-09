@@ -111,7 +111,7 @@
                             <td>{{str_limit($member->name , 26 , '...')}}</td>
                             <td>  Rp. {{number_format($member->balance,0,',','.')}}</td>
                             <td>
-                                <a class="text-white" href="/member/{{$member->id}}"> <i class="fas fa-external-link-square-alt fa-lg text-dark-blue"></i></a>
+                                <a class="text-white" href="{{route('member.show',['id'=>$member->id])}}"> <i class="fas fa-external-link-square-alt fa-lg text-dark-blue"></i></a>
                             </td>
                         </tr>
                     @endforeach
