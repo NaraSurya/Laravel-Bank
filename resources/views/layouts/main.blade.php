@@ -49,7 +49,7 @@
       <ul class="navbar-nav px-3 mx-5">
         <li class="nav-item text-nowrap dropdown">
           <a class="text-dark nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  v-pre>
-            <i class="fas  fa-lg  fa-user mx-2"></i> {{ Auth::user()->name }}
+            <img src="{{ asset('/storage/users/'.Auth::user()->profile_picture) }}"  class="rounded-circle" alt="logo_simple"  width="35px" height="35px">{{ Auth::user()->name }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href={{ route('users.edit') }}>Profile</a>
