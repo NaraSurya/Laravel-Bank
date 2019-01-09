@@ -24,17 +24,19 @@ class DepositController extends Controller
      */
     public function index()
     {
+        $stats = deposit::all();
         if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
             abort(403);
         }
+        
         $deposits = deposit::paginate(10);
 
         if(Session::has('searchByDate')){
             $deposits = deposit::whereDate('date',Session::get('searchByDate'))->paginate(10);
         }
 
-        $balance = $deposits->where('deposit_type_id','1')->sum('nominal_transaction') + $deposits->where('deposit_type_id','4')->sum('nominal_transaction') - $deposits->where('deposit_type_id','2')->sum('nominal_transaction') - $deposits->where('deposit_type_id','3')->sum('nominal_transaction');
-        return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        $balance = $stats->where('deposit_type_id','1')->sum('nominal_transaction') + $stats->where('deposit_type_id','4')->sum('nominal_transaction') - $stats->where('deposit_type_id','2')->sum('nominal_transaction') - $stats->where('deposit_type_id','3')->sum('nominal_transaction');
+        return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance , 'stats'=>$stats]);
     
     }
 
@@ -168,34 +170,35 @@ class DepositController extends Controller
         if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
             abort(403);
         }
+        $stats = deposit::all();
         $deposits = deposit::get();
        
         if(Session::has('searchByDate')){
             $deposits = deposit::whereDate('date',Session::get('searchByDate'))->paginate(10);
         }
 
-        $balance = $deposits->where('deposit_type_id','1')->sum('nominal_transaction') + $deposits->where('deposit_type_id','4')->sum('nominal_transaction') - $deposits->where('deposit_type_id','2')->sum('nominal_transaction') - $deposits->where('deposit_type_id','3')->sum('nominal_transaction');
+        $balance = $stats->where('deposit_type_id','1')->sum('nominal_transaction') + $stats->where('deposit_type_id','4')->sum('nominal_transaction') - $stats->where('deposit_type_id','2')->sum('nominal_transaction') - $stats->where('deposit_type_id','3')->sum('nominal_transaction');
 
         if ($request->menu == 1) {
           
             $deposits = deposit::where('deposit_type_id',1)->whereDate('date',Session::get('searchByDate'))->paginate(10);
             
-            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance,'stats'=>$stats]);
         } 
         else if  ($request->menu == 2){
             $deposits = deposit::where('deposit_type_id',2)->whereDate('date',Session::get('searchByDate'))->paginate(10);
             
-            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance,'stats'=>$stats]);
         }
         else if  ($request->menu == 3){
             $deposits = deposit::where('deposit_type_id',3)->whereDate('date',Session::get('searchByDate'))->paginate(10);
             
-            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance,'stats'=>$stats]);
         }
         else{
             $deposits = deposit::where('deposit_type_id',4)->whereDate('date',Session::get('searchByDate'))->paginate(10);
            
-            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance , 'stats'=>$stats]);
         }
        
         

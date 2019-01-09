@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total Deposits</h5>
-                            <h5> Rp. {{number_format($deposits->where('deposit_type_id','1')->sum('nominal_transaction'),0,',','.')}}</h5>
+                            <h5> Rp. {{number_format($stats->where('deposit_type_id','1')->sum('nominal_transaction'),0,',','.')}}</h5>
                         </div>  
                         <form action="{{route('deposit.menu')}}" method="GET">
                             <input type="hidden"  value=1 name="menu">
@@ -25,7 +25,7 @@
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total withdrawal</h5>
-                            <h5>Rp. {{number_format( $deposits->where('deposit_type_id','2')->sum('nominal_transaction'),0,',','.')}}</h5>
+                            <h5>Rp. {{number_format( $stats->where('deposit_type_id','2')->sum('nominal_transaction'),0,',','.')}}</h5>
                         </div>
                         <form action="{{route('deposit.menu')}}" method="GET">
                                 <input type="hidden"  value=2 name="menu">
@@ -37,7 +37,7 @@
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total interest</h5>
-                            <h5> Rp. {{number_format( $deposits->where('deposit_type_id','3')->sum('nominal_transaction'),0,',','.')}}</h5>
+                            <h5> Rp. {{number_format( $stats->where('deposit_type_id','3')->sum('nominal_transaction'),0,',','.')}}</h5>
                         </div>
                         <form action="{{route('deposit.menu')}}" method="GET">
                                 <input type="hidden"  value=3 name="menu">
@@ -47,7 +47,7 @@
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total taxs</h5>
-                            <h5> Rp. {{number_format( $deposits->where('deposit_type_id','4')->sum('nominal_transaction'),0,',','.')}}</h5>
+                            <h5> Rp. {{number_format( $stats->where('deposit_type_id','4')->sum('nominal_transaction'),0,',','.')}}</h5>
                         </div>
                         <form action="{{route('deposit.menu')}}" method="GET">
                                 <input type="hidden" value=4 name="menu">
