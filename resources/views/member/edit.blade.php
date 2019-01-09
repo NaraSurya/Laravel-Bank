@@ -61,14 +61,6 @@
                                 <label class="custom-control-label" for="women">Women</label>
                         </div>  
                     </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="form-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="picture" id="picture">
-                                <label class="custom-file-label" for="customFile">Foto profile</label>
-                                </div>
-                            </div>
-                    </div>
                 </div>
                 <div class="col-12 text-right mt-5">
                     <button class="btn purple-gradient">Submit</button>

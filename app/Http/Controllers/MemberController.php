@@ -195,4 +195,12 @@ class MemberController extends Controller
         }
         return view('member.multipleResult',['members'=>$members]);
     }
+
+    public function changePicture(Request $request , member $member){
+        _File::_DeleteImage($member->profile_picture,'members');
+        $image = _File::_StoreImage($request,'members');
+        $member->profile_picture = $image; 
+        $member->save();
+        return redirect()->back();
+    }
 }

@@ -10,6 +10,14 @@
                         <a href="{{ asset('/storage/members/'.$member->profile_picture) }}">
                             <img src="{{ asset('/storage/members/'.$member->profile_picture) }}" width="100px" height="100px"  class="rounded" alt="">
                         </a>
+                        <form enctype="multipart/form-data" action={{route('member.changePicture',['id'=>$member->id])}} id="changePicture" method="post" >
+                            @csrf
+                            <input type="file" name="picture" id="picture" >
+                            <input type="hidden" name="name" value="{{$member->name}}">
+                        </form>
+                        <div class="col-12 text-center">
+
+                        </div>
                     </div>
                     <div class="col-sm-12 col-md-8">
                         <div class="row">
@@ -131,6 +139,11 @@
     </div>
 @endsection
 @section('script')
+    <script>
+        $("#changePicture").change(function(){
+            $("#changePicture").submit();
+        });
+    </script>
     <script>
         var labels = {!! json_encode($labels)  !!}
         var datas = {!! json_encode($datas) !!}

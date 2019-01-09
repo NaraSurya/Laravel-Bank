@@ -50,7 +50,7 @@
       <ul class="navbar-nav px-3 mx-5">
         <li class="nav-item text-nowrap dropdown">
           <a class="text-dark nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  v-pre>
-            <i class="fas  fa-lg  fa-user mx-2"></i> {{ Auth::user()->name }}
+            <img src="{{ asset('/storage/users/'.Auth::user()->profile_picture) }}"  class="rounded-circle" alt="logo_simple"  width="35px" height="35px">{{ Auth::user()->name }}
           </a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -93,9 +93,15 @@
                     <a href={{ route('users.index') }}>Data User</a>
                   @endcan
                   <a href={{route('member.index')}}>Data Anggota</a>
+                  @can('isAdmin')
                   <a href={{route('masterInterest.index')}}>Data Bunga</a>
+                  @endcan
+                  @can('isDepositEmployee')
+                  <a href={{route('masterInterest.index')}}>Data Bunga</a>
+                  @endcan
                 </div>
               </li>
+              @can('isAdmin')
               <li class="nav-item item mx-2 mb-3" id="transaksi">
                 <a class="nav-link sidebar-menu text-purple" href="#transaksi">
                   <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Transaksi</span> 
@@ -105,6 +111,18 @@
                   <a href={{route('calculationInterest.index')}}>Perhitungan Bunga</a>
                 </div>
               </li>
+              @endcan
+              @can('isDepositEmployee')
+              <li class="nav-item item mx-2 mb-3" id="transaksi">
+                <a class="nav-link sidebar-menu text-purple" href="#transaksi">
+                  <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Transaksi</span> 
+                </a>
+                <div class="sub-menu">
+                  <a href={{route('deposit.index')}}>Transaksi</a>
+                  <a href={{route('calculationInterest.index')}}>Perhitungan Bunga</a>
+                </div>
+              </li>
+              @endcan
               <li class="nav-item item mx-2 mb-3" id="report">
                 <a class="nav-link sidebar-menu text-purple" href="#report">
                   <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Report</span>

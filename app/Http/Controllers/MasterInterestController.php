@@ -15,7 +15,7 @@ class MasterInterestController extends Controller
 
     public function index(){
 
-        if(!Gate::allows('isAdmin')){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
             abort(403);
         }
         $masterInterest = MasterInterest::all();
@@ -23,15 +23,26 @@ class MasterInterestController extends Controller
     }
 
     public function store(Request $request){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
+
         $masterInterest = MasterInterest::create($request->all());
         return redirect()->back();
     }
 
     public function destroy(MasterInterest $masterInterest){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
+
         $masterInterest->delete();
         return redirect()->back();
     }
     public function update(Request $request , MasterInterest $masterInterest){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $masterInterest->start_date = $request->start_date;
         $masterInterest->percentage = $request->percentage;
         $masterInterest->save();

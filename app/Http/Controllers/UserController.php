@@ -16,9 +16,7 @@ class UserController extends Controller
     public $rule = [
         'name' => 'required|string|max:191',
         'email'=> 'required|email|unique:users',
-        'password'=>'required|confirmed|string|min:6',
-        'nik'=>'required|unique:users',
-        'picture' => 'required'
+        'nik'=>'required|unique:users'
     ];
     
     public function __construct(){
@@ -76,14 +74,10 @@ class UserController extends Controller
         $this->rule['email'] = $this->rule['email'].',id,'.$user->id;
         $this->rule['nik'] = $this->rule['nik'].',id,'.$user->id;
         $this->validate($request,$this->rule);
-        _File::_DeleteImage($user->profile_picture,'users');
-        $image = _File::_StoreImage($request,'users');
         
         $user->name = $request->name;
         $user->email = $request->email;
         $user->nik = $request->nik;
-        $user->password = Hash::make($request->password);
-        $user->profile_picture = $image;
         $user->save();
 
         if(!Gate::allows('isAdmin')){
@@ -99,5 +93,25 @@ class UserController extends Controller
 
         $users = User::where('status_aktif','0')->get();
         return view('user.fired',['users'=>$users]);
+    }
+
+    public function changePicture(Request $request , User $user){
+        _File::_DeleteImage($user->profile_picture,'users');
+        $image = _File::_StoreImage($request,'users');
+        $user->profile_picture = $image; 
+        $user->save();
+        return redirect()->back();
+    }
+
+    public function changePassword(Request $request , User $user){
+        $this->validate($request,[
+            'password'=>'required|confirmed|string|min:6'
+        ]);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        if(!Gate::allows('isAdmin')){
+            return redirect('/home');
+        }
+        return redirect('users/index');
     }
 }
