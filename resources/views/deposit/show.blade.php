@@ -110,7 +110,7 @@
                     <th>type transaction</th>
                     <th>nominal transaction</th>
                     <th>balance</th>
-                    <th>#</th>
+                    <th>Action</th>
                 </thead>
                 <tbody class="text-white">
                     @foreach ($member->deposit->sortByDesc('id') as $transaction)
@@ -120,7 +120,11 @@
                             <td>{{$transaction->deposit_type->transaction_name}}</td>
                             <td>Rp. {{number_format($transaction->nominal_transaction,0,',','.')}}</td> 
                             <td>Rp. {{number_format($member->_BalanceAt($transaction->id),0,',','.')}}</td>
-                            <td>edit</td>
+                            <td>  <form action={{route('deposit.destroy',['id'=>$transaction->id])}} method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form></td>
                         </tr>
                     @endforeach
                 </tbody>
