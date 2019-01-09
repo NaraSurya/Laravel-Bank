@@ -49,27 +49,14 @@
                             <td>{{$transaction->member->name}}</td>
                             <td>{{$transaction->member->member_number}}</td>
                             <td>{{$transaction->deposit_type->transaction_name}}</td>
-                            @if ($transaction->_Debit() > 0)
-                                <td>  Rp. {{number_format($transaction->_Debit(),0,',','.')}}</td>
-                            @else
-                                <td>{{$transaction->_Debit()}}</td>
-                            @endif
-                            @if ($transaction->_Kredit() > 0)
-                                <td>  Rp. {{number_format($transaction->_Kredit(),0,',','.')}}</td>
-                            @else
-                                <td>{{$transaction->_Kredit()}}</td>
-                            @endif
-                            <td>Rp. {{number_format($transaction->member->_BalanceAt($transaction->id),0,',','.')}}</td>
+                            <td>{{$transaction->_Debit()}}</td>
+                            <td>{{$transaction->_Kredit()}}</td>
+                            <td>{{$transaction->member->_BalanceAt($transaction->id)}}</td>
                             <td>{{$transaction->date}}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
-        <div class="row mt-5">
-            <div class="col-12">
-                {!! $deposits->links() !!}
-            </div>
         </div>
     </div>
 @endsection

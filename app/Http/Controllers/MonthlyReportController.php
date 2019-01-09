@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use App\deposit;
 use App\member;
 use Carbon\Carbon;
@@ -43,5 +44,26 @@ class MonthlyReportController extends Controller
         }
 
         return $this->date;
-    } 
+    }
+    
+    public function searchByMember(Request $request){
+        $search = $request->search;
+        $date = $this->_GetDate();
+        $startDate = Carbon::parse($date)->startOfMonth();
+        $endDate = Carbon::parse($date)->endOfMonth();
+        $deposits = new Collection();
+        
+        $members = member::where('member_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('name' , 'like' , '%'.$search.'%') 
+                            ->orWhere('address' , 'like' , '%'.$search.'%')
+                            ->orWhere('ktp_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('phone_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('birth_day' , 'like' , '%'.$search.'%')->get();
+        
+        foreach ($members as $member) {
+            $deposits = $deposits->merge($member->deposit->whereBetween('date',[$startDate,$endDate]));
+        }
+        return view('monthlyReport.result',["deposits"=>$deposits]);
+
+    }
 }

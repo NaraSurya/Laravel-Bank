@@ -12,11 +12,18 @@ class calculationInterest extends Model
         'transaction_month' , 'transaction_year' , 'calculation_date' , 'master_interest_id' , 'user_id'
     ];
 
+    private $month = [
+        'Januari' , 'Februari' , 'Maret' , 'April' , 'Mei' , 'Juni' , 'Juli' , 'Agustus' , 'September' , 'Oktober' , 'November' , 'Desember'
+    ];
+
     public function _GetTotalInterest(){
         $date = Carbon::parse($this->calculation_date)->format('Y-m-d');
         return deposit::where('deposit_type_id',3)->whereDate('date',$date)->sum('nominal_transaction');
     }
 
+    public function _GetMonth(){
+        return $this->month[$this->transaction_month - 1];
+    }
     /**
      * Relathionship Fungsi
      */

@@ -22,16 +22,25 @@ class CalculationInterestController extends Controller
 
     public function store(Request $request){
 
-        $dateTwoMonthAgo= Carbon::parse($request->transaction_month)->subMonth(2);
         $transactionMonth = explode('-',$request->transaction_month,2);
         $date = Carbon::now();
         $masterInterest = masterInterest::where('start_date','<=',$date)->get();
+        
+        if($error = $this->_Validate($transactionMonth , $masterInterest)){
+            return redirect()->back()->withErrors(['msg'=>$error])->withInput();
+        }
+
+       
+
+        $dateTwoMonthAgo= Carbon::parse($request->transaction_month)->subMonth(2);
         $percentage = $masterInterest->sortByDesc('start_date')->first()->percentage;
         $interestId = $masterInterest->sortByDesc('start_date')->first()->id;
         $user = Auth::user()->id;
         $lastDateToMonthAgo = $dateTwoMonthAgo->endOfMonth();
         $members = member::where('aktive',1)->get();
         $totalInterest = 0;
+
+       
 
         $calculationInterest = calculationInterest::create([
             'transaction_month'=>$transactionMonth[1],
@@ -57,7 +66,17 @@ class CalculationInterestController extends Controller
         $calculationInterest->save();
 
         return redirect()->back();
+    }
 
-
+    private function _Validate($transactionMonth , $masterInterest){
+        $checkCalculationInterest = calculationInterest::where('transaction_year',$transactionMonth[0])
+                                                        ->where('transaction_month',$transactionMonth[1])
+                                                        ->count();
+        if($checkCalculationInterest > 0){
+            return "perhitungan bunga sudah dilakukan"; 
+        }
+        if($masterInterest->isEmpty()){
+            return "tidak ada bunga";
+        }
     }
 }

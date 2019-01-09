@@ -91,4 +91,13 @@ class UserController extends Controller
         }
         return redirect('users/index');
     }
+
+    public function showFired(){
+        if(!Gate::allows('isAdmin')){
+            abort(403);
+        }
+
+        $users = User::where('status_aktif','0')->get();
+        return view('user.fired',['users'=>$users]);
+    }
 }

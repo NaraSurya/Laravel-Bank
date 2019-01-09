@@ -159,4 +159,40 @@ class MemberController extends Controller
 
         return redirect(route('member.index'));
     }
+
+    public function active(){
+        $members = member::where('aktive','1')->get();
+        return view('member.active',['members'=>$members , 'active'=>1]);
+    }
+
+    public function nonActive(){
+        $members = member::where('aktive','0')->get();
+        return view('member.active',['members'=>$members , 'active'=>0]);
+    }
+
+    public function controlActive(member $member){
+        if($member->aktive == '1'){
+            $member->aktive = '0';
+        }
+        else{
+            $member->aktive = '1';
+        }
+       
+        $member->save();
+        return redirect()->back();
+    }
+
+    public function search(Request $request){
+        $search = $request->search;
+        $members = member::where('member_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('name' , 'like' , '%'.$search.'%') 
+                            ->orWhere('address' , 'like' , '%'.$search.'%')
+                            ->orWhere('ktp_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('phone_number' , 'like' , '%'.$search.'%')
+                            ->orWhere('birth_day' , 'like' , '%'.$search.'%')->get();
+        if($members->count() == 1){
+           return $this->show($members->first());
+        }
+        return view('member.multipleResult',['members'=>$members]);
+    }
 }

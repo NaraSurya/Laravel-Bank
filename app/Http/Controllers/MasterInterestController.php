@@ -31,4 +31,10 @@ class MasterInterestController extends Controller
         $masterInterest->delete();
         return redirect()->back();
     }
+    public function update(Request $request , MasterInterest $masterInterest){
+        $masterInterest->start_date = $request->start_date;
+        $masterInterest->percentage = $request->percentage;
+        $masterInterest->save();
+        return redirect()->back();
+    }
 }

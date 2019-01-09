@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title' , 'Member')
-@section('action','/anggota-search')
+@section('action', route('member.search'))
 @section('content')
     <div class = " container-fluid">
         <div class="row">
@@ -22,18 +22,18 @@
                </div>
                <div class="row">
                     <div class="col-6 border-right">
-                        <h4>{{ $members->where('active',0)->count()}}</h4>
+                        <h4>{{ $members->where('aktive',1)->count()}}</h4>
                     </div>
                     <div class="col-6">
-                        <h4>{{ $members->where('active',1)->count()}}</h4>
+                        <h4>{{ $members->where('aktive',0)->count()}}</h4>
                     </div>
                </div>
                <div class="row">
-                    <div class="col-6 border-right pt-4">
-                        <a href="/" class="btn btn-md btn-purple-white">see list</a>
+                    <div class="col-6 border-right pt-2">
+                        <a href={{route('member.active')}} class="btn btn-md lavender ">see list</a>
                     </div>
-                    <div class="col-6 pt-4">
-                        <a href="/" class="btn btn-md btn-purple-white">see list</a>
+                    <div class="col-6 pt-2">
+                        <a href={{route('member.nonActive')}} class="btn btn-md lavender ">see list</a>
                     </div>
                </div>
             </div>

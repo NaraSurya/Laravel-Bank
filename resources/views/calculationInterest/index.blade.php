@@ -13,7 +13,7 @@
                 <div class="col-3">
                     <div class="form-group d-flex">
                         <label for="transactionMonth">Transaction Month</label>
-                        <input type="month" name="transaction_month" class="form-control mx-3" id="transactionMonth">
+                        <input type="month" name="transaction_month" class="form-control mx-3" value="{{ old('transaction_month') }}" id="transactionMonth">
                     </div>
                 </div>
                 <div class="col-3">
@@ -22,6 +22,11 @@
                     </div>
                 </div>
             </div>
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <p class="text-danger">{{$errors->first()}}</p>
+                </div>    
+            @endif
         </form>
         <div class="row mt-3">
             <table class="table table-borderless">
@@ -40,7 +45,7 @@
                     @foreach ($calculationInterest as $transaction)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$transaction->transaction_month}}</td>
+                            <td>{{$transaction->_GetMonth()}}</td>
                             <td>{{$transaction->transaction_year}}</td>
                             <td>{{$transaction->calculation_date}}</td>
                             <td>{{$transaction->master_interest->percentage}}</td>
