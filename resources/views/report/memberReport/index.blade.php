@@ -41,11 +41,16 @@
                 </thead>
                 <tbody class="text-white">
                         
-                    @foreach ($monthlys as $monthly)
+                    @foreach ($monthlys->groupBy('member_id') as $monthly)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$monthly->member->name}}</td>
-                            @if ($monthly->_Debit() > 0)
+                            <td>{{$monthly[0]->member->name}}</td>
+                            <td>Rp. {{number_format((($monthly->where('deposit_type_id',1)->sum('nominal_transaction')) + ($monthly->where('deposit_type_id',4)->sum('nominal_transaction'))),0,',','.') }}</td>
+
+                            <td>Rp. {{number_format((($monthly->where('deposit_type_id',2)->sum('nominal_transaction')) + ($monthly->where('deposit_type_id',3)->sum('nominal_transaction'))),0,',','.') }}</td>
+
+
+                            {{-- @if ($monthly->_Debit() > 0)
                                 <td>Rp. {{number_format($monthly->_Debit(),0,',','.')}}</td>
                             @else
                                 <td>{{$monthly->_Debit()}}</td>    
@@ -54,12 +59,12 @@
                                 <td>Rp. {{number_format($monthly->_Kredit(),0,',','.')}}</td> 
                             @else
                                 <td>{{$monthly->_Kredit()}}</td>
-                            @endif
+                            @endif --}}
 
                                                     
                             {{-- <td>Rp. {{number_format($monthly->sum('nominal_transaction'),0,',','.')}}</td> --}}
                             <td>
-                                    <a class="text-white" href="/members/member/{{$monthly->member->id}}"> <i class="fas fa-external-link-square-alt fa-lg text-dark-blue"></i></a>
+                                    <a class="text-white" href="/members/member/{{$monthly[0]->member->id}}"> <i class="fas fa-external-link-square-alt fa-lg text-dark-blue"></i></a>
                             </td>
                         </tr>
                     @endforeach

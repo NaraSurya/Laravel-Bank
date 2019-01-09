@@ -9,13 +9,13 @@
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total Bank Balance</h5>
-                            <h5>{{ $balance}}</h5>
+                            <h5> Rp. {{number_format($balance,0,',','.')}}</h5>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total Deposits</h5>
-                            <h5>{{ $deposits->where('deposit_type_id','1')->sum('nominal_transaction')}}</h5>
+                            <h5> Rp. {{number_format($deposits->where('deposit_type_id','1')->sum('nominal_transaction'),0,',','.')}}</h5>
                         </div>  
                         <form action="{{route('deposit.menu')}}" method="GET">
                             <input type="hidden"  value=1 name="menu">
@@ -25,7 +25,7 @@
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total withdrawal</h5>
-                            <h5>{{ $deposits->where('deposit_type_id','2')->sum('nominal_transaction')}}</h5>
+                            <h5>Rp. {{number_format( $deposits->where('deposit_type_id','2')->sum('nominal_transaction'),0,',','.')}}</h5>
                         </div>
                         <form action="{{route('deposit.menu')}}" method="GET">
                                 <input type="hidden"  value=2 name="menu">
@@ -37,7 +37,7 @@
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total interest</h5>
-                            <h5>{{ $deposits->where('deposit_type_id','3')->sum('nominal_transaction')}}</h5>
+                            <h5> Rp. {{number_format( $deposits->where('deposit_type_id','3')->sum('nominal_transaction'),0,',','.')}}</h5>
                         </div>
                         <form action="{{route('deposit.menu')}}" method="GET">
                                 <input type="hidden"  value=3 name="menu">
@@ -47,7 +47,7 @@
                     <div class="card">
                         <div class="card-body dark border-0">
                             <h5 class="card-title">Total taxs</h5>
-                            <h5>{{ $deposits->where('deposit_type_id','4')->sum('nominal_transaction')}}</h5>
+                            <h5> Rp. {{number_format( $deposits->where('deposit_type_id','4')->sum('nominal_transaction'),0,',','.')}}</h5>
                         </div>
                         <form action="{{route('deposit.menu')}}" method="GET">
                                 <input type="hidden" value=4 name="menu">
@@ -58,6 +58,28 @@
             </div>
         </div>
         <div class="row mt-5">
+            <div class="col-12">
+            <form action="{{route('deposit.searchByDate')}}" method="GET">
+                            @csrf
+                            <div class="row">
+                                <div class="col-3 p-3 dark">
+                                    <div class="form-group ">
+                                        <label for="date">Date</label>
+                                    <input type="date" class="form-control" name="dateNow" value="{{Session::get('searchByDate')}}" id="date">
+                                    </div>
+                                </div>
+                                <div class="col-3 p-4 dark">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-md lavender mt-4">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+            </div>
+               
+        </div>
+        
+        <div class="row mt-5">
             <table class="table table-borderless dark text-white">
                 <thead>
                     <tr>
@@ -66,7 +88,7 @@
                         <th>Member</th>
                         <th>type transaction</th>
                         <th>Nominal Transaction</th>
-                        <th>#</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,7 +99,13 @@
                             <td>{{$transaction->member->name}}</td>
                             <td>{{$transaction->deposit_type->transaction_name}}</td>
                             <td> Rp. {{number_format($transaction->nominal_transaction,0,',','.')}}</td>
-                            <td>edit</td>
+                            <td>
+                                <form action={{route('deposit.destroy',['id'=>$transaction->id])}} method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                         
                     @endforeach

@@ -37,6 +37,8 @@ Route::prefix('deposits')->group(function(){
     route::post('member-deposit','DepositController@deposit')->name('deposit');
     route::post('member-withdrawal','DepositController@withdrawal')->name('withdrawal');
     route::get('menu/','DepositController@menu')->name('deposit.menu');
+    route::delete('destroy/{deposit}','DepositController@destroy')->name('deposit.destroy');
+    route::get('searchByDate','DepositController@searchByDate')->name('deposit.searchByDate');
 });
 
 Route::prefix('master-interest')->group(function(){
