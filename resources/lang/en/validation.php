@@ -128,8 +128,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'withDrawl' => [
+            'required' => 'Your Balance is Not Enough!',
         ],
     ],
 

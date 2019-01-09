@@ -109,8 +109,8 @@
                   <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Report</span>
                 </a>
                 <div class="sub-menu">
-                  <a href="">Report Nasabah</a>
-                  <a href="">Report Harian</a>
+                  <a href="{{route('memberReport.index')}}">Report Nasabah</a>
+                  <a href="{{route('dailyReport.index')}}">Report Harian</a>
                   <a href={{route('weeklyReport.index')}}>Report Mingguan</a>
                   <a href={{route('monthlyReport.index')}}>Report Bulanan</a>
                   <a href={{route('annualReport.index')}}>Report Tahun</a>

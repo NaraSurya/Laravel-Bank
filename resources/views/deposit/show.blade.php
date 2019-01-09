@@ -22,7 +22,8 @@
                             </div>
                             <div class="col-12 d-flex">
                                 <h5>Total Balance</h5>
-                                <h6 class="mx-3">Rp.{{$member->_Balance()}}</h6>
+                                <h6 class="mx-3">Rp. {{number_format($member->_Balance(),0,',','.')}}</h6>
+                                <input type="hidden" value="{{$member->_Balance()}}" name="balance">
                             </div>
                         </div>
                     </div>
@@ -50,6 +51,7 @@
                         <label for="deposit">nominal dalam bentul RP</label>
                         <input type="text" name="nominal_transaction" class="form-control dark text-white" value="{{ old('deposit') }}" id="deposit">
                         <input type="hidden" name="member_id" value={{$member->id}}>
+                        <span>{!!$errors->first('nominal_transaction', '<p class="alert alert-danger mt-2" >:message</p>') !!}
                     </div>
                     <div class="form-group text-right">
                         <button type="submit" class="btn btn-md lavender">Deposit</button>
@@ -62,8 +64,11 @@
                     @csrf
                     <div class="form-group">
                         <label for="withdrawal">nominal dalam bentuk rp</label>
-                        <input type="text" name="nominal_transaction" class="form-control dark text-white" value="{{ old('withdrawal') }}" id="withdrawal">
+                        <input type="text" name="nominal_transactions" class="form-control dark text-white" value="{{ old('withdrawal') }}" id="withdrawal">
                         <input type="hidden" name="member_id" value={{$member->id}}>
+                        <input type="hidden" value={{$member->_Balance()}} name="balance">
+                        <span>{!!$errors->first('nominal_transactions', '<p class="alert alert-danger mt-2" >:message</p>') !!}
+                        <span>{!!$errors->first('withDrawl', '<p class="alert alert-danger mt-2" >:message</p>') !!}</span>
                     </div>
                     <div class="form-group text-right">
                         <button type="submit" class="btn btn-md lavender">Withdrawal</button>
@@ -76,6 +81,27 @@
                 <h5>History Transaction</h5>
             </div>
         </div>
+        <div class="row mt-3 mb-5">
+                <div class="col-12">
+                <form action="{{route('deposit.searchByDate')}}" method="GET">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-3 p-3 dark">
+                                        <div class="form-group ">
+                                            <label for="date">Date</label>
+                                        <input type="date" class="form-control" name="dateNow" value="{{Session::get('searchByDate')}}" id="date">
+                                        </div>
+                                    </div>
+                                    <div class="col-3 p-4 dark">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-md lavender mt-4">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                </div>
+                   
+            </div>
         <div class="row">
             <table class="table table-borderless dark">
                 <thead>
@@ -92,8 +118,8 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$transaction->date}}</td>
                             <td>{{$transaction->deposit_type->transaction_name}}</td>
-                            <td>{{$transaction->nominal_transaction}}</td>
-                            <td>{{$member->_BalanceAt($transaction->id)}}</td>
+                            <td>Rp. {{number_format($transaction->nominal_transaction,0,',','.')}}</td> 
+                            <td>Rp. {{number_format($member->_BalanceAt($transaction->id),0,',','.')}}</td>
                             <td>edit</td>
                         </tr>
                     @endforeach

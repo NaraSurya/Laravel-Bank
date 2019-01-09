@@ -68,13 +68,13 @@
                     <div class="col-6 dark border-right" style="border-color : #656C76;">
                         <div class=" py-2 ">
                             <h6>Saldo</h6>
-                            <h5 class="text-white">Rp {{$member->_Balance()}}</h5>
+                            <h5 class="text-white">Rp. {{number_format($member->_Balance(),0,',','.')}}</h5>
                         </div>
                     </div>
                     <div class="col-6 dark">
                         <div class="py-2">
-                            <h6>Total Bunga</h6>
-                            <h5 class="text-white">Rp {{$member->_GetTotalInterest()}}</h5>
+                            <h6>Total Bunga</h6>    
+                            <h5 class="text-white">Rp. {{number_format($member->_GetTotalInterest(),0,',','.')}}</h5>
                         </div>
                     </div>
                 </div>
@@ -111,9 +111,17 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$transaction->date}}</td>
                                 <td>{{$transaction->deposit_type->transaction_name}}</td>
+                                @if ($transaction->_Debit() > 0)
+                                <td>  Rp. {{number_format($transaction->_Debit(),0,',','.')}}</td>
+                                @else
                                 <td>{{$transaction->_Debit()}}</td>
+                                @endif
+                                @if ($transaction->_Kredit() > 0)
+                                <td>  Rp. {{number_format($transaction->_Kredit(),0,',','.')}}</td>
+                                @else
                                 <td>{{$transaction->_Kredit()}}</td>
-                                <td>Rp {{$member->_BalanceAt($transaction->id)}}</td>
+                                @endif
+                                <td>Rp. {{number_format($member->_BalanceAt($transaction->id),0,',','.')}}</td>
                             </tr>
                         @endforeach
                     </tbody>

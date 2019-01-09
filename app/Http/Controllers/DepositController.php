@@ -7,6 +7,7 @@ use App\member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Session;
 
 class DepositController extends Controller
 {
@@ -22,9 +23,15 @@ class DepositController extends Controller
      */
     public function index()
     {
-        $deposits = deposit::paginate(5);
+        $deposits = deposit::paginate(10);
+
+        if(Session::has('searchByDate')){
+            $deposits = deposit::whereDate('date',Session::get('searchByDate'))->paginate(10);
+        }
+
         $balance = $deposits->where('deposit_type_id','1')->sum('nominal_transaction') + $deposits->where('deposit_type_id','4')->sum('nominal_transaction') - $deposits->where('deposit_type_id','2')->sum('nominal_transaction') - $deposits->where('deposit_type_id','3')->sum('nominal_transaction');
         return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+    
     }
 
    
@@ -80,7 +87,8 @@ class DepositController extends Controller
      */
     public function destroy(deposit $deposit)
     {
-        //
+        $deposit->delete();
+        return redirect()->back();
     }
 
     public function search(Request $request){
@@ -98,6 +106,11 @@ class DepositController extends Controller
     }
 
     public function deposit(Request $request){
+
+        $this->validate($request,[
+            'nominal_transaction'=>'numeric'
+        ]);
+
         $deposit = deposit::create([
             'date' => Carbon::now(),
             'nominal_transaction' => $request->nominal_transaction , 
@@ -108,13 +121,71 @@ class DepositController extends Controller
         return redirect()->back();
     }
     public function withdrawal(Request $request){
-        $deposit = deposit::create([
-            'date' => Carbon::now(),
-            'nominal_transaction' => $request->nominal_transaction , 
-            'member_id' => $request->member_id ,
-            'user_id' => Auth::user()->id,
-            'deposit_type_id' => 2 
+        $this->validate($request,[
+            'nominal_transactions'=>'numeric'
         ]);
-        return redirect()->back();
+
+        if(($request->balance) > ($request->nominal_transactions)){
+            $deposit = deposit::create([
+                'date' => Carbon::now(),
+                'nominal_transaction' => $request->nominal_transactions , 
+                'member_id' => $request->member_id ,
+                'user_id' => Auth::user()->id,
+                'deposit_type_id' => 2 
+            ]);
+            return redirect()->back();
+        }
+        else{
+            $this->validate($request,[
+                'withDrawl'=>'required'
+            ]);
+            return redirect()->back();
+        }
+       
+
+      
+    }
+
+    public function menu(Request $request){
+        $deposits = deposit::get();
+       
+        if(Session::has('searchByDate')){
+            $deposits = deposit::whereDate('date',Session::get('searchByDate'))->paginate(10);
+        }
+
+        $balance = $deposits->where('deposit_type_id','1')->sum('nominal_transaction') + $deposits->where('deposit_type_id','4')->sum('nominal_transaction') - $deposits->where('deposit_type_id','2')->sum('nominal_transaction') - $deposits->where('deposit_type_id','3')->sum('nominal_transaction');
+
+        if ($request->menu == 1) {
+          
+            $deposits = deposit::where('deposit_type_id',1)->whereDate('date',Session::get('searchByDate'))->paginate(10);
+            
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        } 
+        else if  ($request->menu == 2){
+            $deposits = deposit::where('deposit_type_id',2)->whereDate('date',Session::get('searchByDate'))->paginate(10);
+            
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        }
+        else if  ($request->menu == 3){
+            $deposits = deposit::where('deposit_type_id',3)->whereDate('date',Session::get('searchByDate'))->paginate(10);
+            
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        }
+        else{
+            $deposits = deposit::where('deposit_type_id',4)->whereDate('date',Session::get('searchByDate'))->paginate(10);
+           
+            return view('deposit.index',['deposits'=>$deposits , 'balance'=>$balance]);
+        }
+       
+        
+    }
+
+    public function searchByDate(Request $request){
+        $dailyDate = Carbon::parse($request->dateNow);
+        $dailyString = $dailyDate->toDateString();
+        Session::put('searchByDate', $dailyString);
+        return redirect(route('deposit.index'));
     }
 }
+
+  
