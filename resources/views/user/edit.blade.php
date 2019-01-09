@@ -4,6 +4,21 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <div class="card dark text-center ">
+                <div class="card-header text-center">{{ __('Edit Profile') }}</div>
+                <div class="card-body ">
+                    <a href="{{ asset('/storage/users/'.$user->profile_picture) }}">
+                        <img src="{{ asset('/storage/users/'.$user->profile_picture) }}" width="100px" height="100px"  class="rounded" alt="">
+                    </a>
+                    <form method="POST"  action="{{ route('user.changePicture' , ['id'=>$user->id]) }}" id="changePicture" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="picture" id="picture" >
+                        <input type="hidden" name="name" value="{{$user->name}}">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
             <div class="card dark">
                 <div class="card-header text-center">{{ __('Edit Profile') }}</div>
 
@@ -52,24 +67,24 @@
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="nik" class="col-md-4 col-form-label text-md-right">{{ __('foto profile') }}</label>
-
-                            <div class="col-md-6">
-                                <div class="custom-file">
-                                    <input id="picture" type="file" class="{{ $errors->has('picture') ? ' is-invalid' : '' }} custom-file-input dark text-white" name="picture" value="{{ old('picture') }}" required>
-                                    <label class="custom-file-label dark text-white" for="picture">Choose file</label>
-                                </div>
-                               
-                                @if ($errors->has('picture'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('picture') }}</strong>
-                                    </span>
-                                @endif
+                        
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Update') }}
+                                </button>
                             </div>
                         </div>
-
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card dark text-center ">
+                <div class="card-header">{{ __('Edit Password') }}</div>
+                <div class="card-body ">
+                    <form method="POST"  action="{{ route('user.changePassword' , ['id'=>$user->id]) }}" id="changePicture" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -83,7 +98,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -91,7 +105,6 @@
                                 <input id="password-confirm" type="password" class="form-control dark text-white" name="password_confirmation" required>
                             </div>
                         </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -105,4 +118,11 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+    <script>
+        $("#changePicture").change(function(){
+            $("#changePicture").submit();
+        });
+    </script>
 @endsection

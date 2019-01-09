@@ -25,6 +25,8 @@ Route::prefix('users')->group(function(){
     Route::get('fired/{id}','UserController@fired')->name('users.fired');
     Route::post('update','UserController@update')->name('users.update');
     Route::get('show-fired','UserController@showFired')->name('users.showFired');
+    Route::post('change-profile/{user}','UserController@changePicture')->name('user.changePicture');
+    Route::post('change-password/{user}','UserController@changePassword')->name('user.changePassword');
 });
 
 Route::prefix('members')->group(function(){
@@ -32,7 +34,8 @@ Route::prefix('members')->group(function(){
     Route::get('active','MemberController@active')->name('member.active');
     Route::get('non-active','MemberController@nonActive')->name('member.nonActive');
     Route::post('active-non-active/{member}','MemberController@controlActive')->name('member.controlActive');
-    route::get('search','MemberController@search')->name('member.search');
+    Route::get('search','MemberController@search')->name('member.search');
+    Route::post('change-profile/{member}','MemberController@changePicture')->name('member.changePicture');
 });
 
 Route::prefix('deposits')->group(function(){
