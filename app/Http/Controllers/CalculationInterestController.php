@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\member;
 use App\masterInterest;
 use App\deposit;
+use Gate;
 class CalculationInterestController extends Controller
 {
     public function __construct(){
@@ -16,12 +17,17 @@ class CalculationInterestController extends Controller
     }
 
     public function index(){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $calculationInterest = calculationInterest::all(); 
         return view('calculationInterest.index',['calculationInterest'=>$calculationInterest]);
     }
 
     public function store(Request $request){
-
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $transactionMonth = explode('-',$request->transaction_month,2);
         $date = Carbon::now();
         $masterInterest = masterInterest::where('start_date','<=',$date)->get();

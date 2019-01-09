@@ -91,10 +91,15 @@
                     <a href={{ route('users.index') }}>Data User</a>
                   @endcan
                   <a href={{route('member.index')}}>Data Anggota</a>
+                  @can('isAdmin')
                   <a href={{route('masterInterest.index')}}>Data Bunga</a>
-                  <a href="">Data Jenis Transaksi</a>
+                  @endcan
+                  @can('isDepositEmployee')
+                  <a href={{route('masterInterest.index')}}>Data Bunga</a>
+                  @endcan
                 </div>
               </li>
+              @can('isAdmin')
               <li class="nav-item item mx-2 mb-3" id="transaksi">
                 <a class="nav-link sidebar-menu text-purple" href="#transaksi">
                   <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Transaksi</span> 
@@ -104,6 +109,18 @@
                   <a href={{route('calculationInterest.index')}}>Perhitungan Bunga</a>
                 </div>
               </li>
+              @endcan
+              @can('isDepositEmployee')
+              <li class="nav-item item mx-2 mb-3" id="transaksi">
+                <a class="nav-link sidebar-menu text-purple" href="#transaksi">
+                  <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Transaksi</span> 
+                </a>
+                <div class="sub-menu">
+                  <a href={{route('deposit.index')}}>Transaksi</a>
+                  <a href={{route('calculationInterest.index')}}>Perhitungan Bunga</a>
+                </div>
+              </li>
+              @endcan
               <li class="nav-item item mx-2 mb-3" id="report">
                 <a class="nav-link sidebar-menu text-purple" href="#report">
                   <i class="fas  fa-hand-holding-usd mx-1"></i> <span class="mx-3">Master Report</span>

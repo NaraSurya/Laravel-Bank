@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Session;
+use Gate;
 
 class DepositController extends Controller
 {
@@ -23,6 +24,9 @@ class DepositController extends Controller
      */
     public function index()
     {
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $deposits = deposit::paginate(10);
 
         if(Session::has('searchByDate')){
@@ -43,6 +47,9 @@ class DepositController extends Controller
      */
     public function show($id)
     {
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $member = member::find($id);
         $data=[];
         $label = [];
@@ -87,11 +94,17 @@ class DepositController extends Controller
      */
     public function destroy(deposit $deposit)
     {
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $deposit->delete();
         return redirect()->back();
     }
 
     public function search(Request $request){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $search = $request->search;
         $members = member::where('member_number' , 'like' , '%'.$search.'%')
                             ->orWhere('name' , 'like' , '%'.$search.'%') 
@@ -106,7 +119,9 @@ class DepositController extends Controller
     }
 
     public function deposit(Request $request){
-
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $this->validate($request,[
             'nominal_transaction'=>'numeric'
         ]);
@@ -121,6 +136,9 @@ class DepositController extends Controller
         return redirect()->back();
     }
     public function withdrawal(Request $request){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $this->validate($request,[
             'nominal_transactions'=>'numeric'
         ]);
@@ -147,6 +165,9 @@ class DepositController extends Controller
     }
 
     public function menu(Request $request){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $deposits = deposit::get();
        
         if(Session::has('searchByDate')){
@@ -181,6 +202,9 @@ class DepositController extends Controller
     }
 
     public function searchByDate(Request $request){
+        if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
+            abort(403);
+        }
         $dailyDate = Carbon::parse($request->dateNow);
         $dailyString = $dailyDate->toDateString();
         Session::put('searchByDate', $dailyString);
