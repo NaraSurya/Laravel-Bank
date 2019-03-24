@@ -57,7 +57,7 @@
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" value="women" name="gender" id="women" class="custom-control-input">
-                                <label class="custom-control-label" for="women">women</label>
+                                <label class="custom-control-label" for="women">Women</label>
                         </div>     
                     </div>
                     <div class="col-sm-12 col-md-7">

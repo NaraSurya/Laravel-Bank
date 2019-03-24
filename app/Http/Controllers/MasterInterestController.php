@@ -26,7 +26,8 @@ class MasterInterestController extends Controller
         if(!Gate::allows('isAdmin') && !Gate::allows('isDepositEmployee') ){
             abort(403);
         }
-
+        //1.t
+        //2
         $masterInterest = MasterInterest::create($request->all());
         return redirect()->back();
     }

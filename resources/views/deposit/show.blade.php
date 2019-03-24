@@ -48,7 +48,7 @@
                 <form action={{route('deposit')}} method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="deposit">nominal dalam bentul RP</label>
+                        <label for="deposit">nominal dalam bentuk Rp</label>
                         <input type="text" name="nominal_transaction" class="form-control dark text-white" value="{{ old('deposit') }}" id="deposit">
                         <input type="hidden" name="member_id" value={{$member->id}}>
                         <span>{!!$errors->first('nominal_transaction', '<p class="alert alert-danger mt-2" >:message</p>') !!}
@@ -60,18 +60,18 @@
             </div>
             <div class="col-sm-12 col-md-4 px-3 py-2 mt-5 mx-1 dark">
                 <h6> Withdrawal Field</h6>
-                <form action={{route('withdrawal')}} method="POST">
+                <form action={{route('withdrawal')}} id="formWithdrawal" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="withdrawal">nominal dalam bentuk rp</label>
-                        <input type="text" name="nominal_transactions" class="form-control dark text-white" value="{{ old('withdrawal') }}" id="withdrawal">
+                        <label for="withdrawal">nominal dalam bentuk Rp</label>
+                        <input type="text" name="nominal_transactions" class="form-control dark text-white" value="{{ old('withdrawal') }}" id="withdrawal" onkeyup="splitInDots(this)">
                         <input type="hidden" name="member_id" value={{$member->id}}>
                         <input type="hidden" value={{$member->_Balance()}} name="balance">
                         <span>{!!$errors->first('nominal_transactions', '<p class="alert alert-danger mt-2" >:message</p>') !!}
                         <span>{!!$errors->first('withDrawl', '<p class="alert alert-danger mt-2" >:message</p>') !!}</span>
                     </div>
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-md lavender">Withdrawal</button>
+                        <button type="submit" id="buttonWithdrawal" class="btn btn-md lavender">Withdrawal</button>
                     </div>
                 </form>
             </div>
@@ -81,27 +81,6 @@
                 <h5>History Transaction</h5>
             </div>
         </div>
-        <div class="row mt-3 mb-5">
-                <div class="col-12">
-                <form action="{{route('deposit.searchByDate')}}" method="GET">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-3 p-3 dark">
-                                        <div class="form-group ">
-                                            <label for="date">Date</label>
-                                        <input type="date" class="form-control" name="dateNow" value="{{Session::get('searchByDate')}}" id="date">
-                                        </div>
-                                    </div>
-                                    <div class="col-3 p-4 dark">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-md lavender mt-4">Search</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                </div>
-                   
-            </div>
         <div class="row">
             <table class="table table-borderless dark">
                 <thead>
@@ -164,5 +143,46 @@
                 
             }
         });
+
+        function reverseNumber(input) {
+       return [].map.call(input, function(x) {
+          return x;
+        }).reverse().join(''); 
+      }
+      
+      function plainNumber(number) {
+         return number.split('.').join('');
+      }
+      
+      function splitInDots(input) {
+        
+        var value = input.value,
+            plain = plainNumber(value),
+            reversed = reverseNumber(plain),
+            reversedWithDots = reversed.match(/.{1,3}/g).join('.'),
+            normal = reverseNumber(reversedWithDots);
+        
+        console.log(plain,reversed, reversedWithDots, normal);
+        input.value = normal;
+      }
+      
+      function oneDot(input) {
+        var value = input.value,
+            value = plainNumber(value);
+        
+        if (value.length > 3) {
+          value = value.substring(0, value.length - 3) + '.' + value.substring(value.length - 3, value.length);
+        }
+        console.log(value);
+        input.value = value;
+      }
+
+      $('#formWithdrawal').submit(function(){
+            var inputan = $('#withdrawal');
+            var value = inputan.value;
+            var inputan.value = plainNumber(value);
+            $('#formWithdrawal').submit();
+
+      })
     </script>
 @endsection

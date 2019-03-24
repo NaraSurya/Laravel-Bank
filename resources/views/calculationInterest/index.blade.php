@@ -49,7 +49,7 @@
                             <td>{{$transaction->transaction_year}}</td>
                             <td>{{$transaction->calculation_date}}</td>
                             <td>{{$transaction->master_interest->percentage}}</td>
-                            <td>{{$transaction->total_interests}}</td>
+                            <td>Rp. {{number_format($transaction->total_interests,0,',','.')}}</td>
                             <td>{{$transaction->user->name}}</td>
                         </tr>
                     @endforeach
